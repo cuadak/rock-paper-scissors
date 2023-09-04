@@ -1,26 +1,23 @@
 let player;
-let playerSelection;
+let playerSelection = "";
 let computer;
 let computerSelection;
 let playerScore = 0;
 let computerScore = 0;
 let gameCount = 0;
 
-function getPlayerChoice() {
-  player = prompt(`What do you choose? Only input rock, paper and scissors`);
-  if (player !== null) {
-    player = player.toLowerCase();
+function getPlayerChoice(selectedButton) {
+  playerSelection = selectedButton;
+  const result = document.querySelector("#result");
+  let para = document.getElementById("para");
+
+  if (!para) {
+    para = document.createElement("p");
+    para.id = "para";
+    result.appendChild(para);
   }
-  if (player === "rock") {
-    return (playerSelection = "rock");
-  } else if (player === "paper") {
-    return (playerSelection = "paper");
-  } else if (player === "scissors") {
-    return (playerSelection = "scissors");
-  } else {
-    alert("You entered the wrong input");
-    getPlayerChoice();
-  }
+  getComputerChoice();
+  playRound();
 }
 
 function getComputerChoice() {
@@ -36,57 +33,61 @@ function getComputerChoice() {
 
 function playRound() {
   if (playerSelection === computerSelection) {
-    console.log(`You draw! Because the computer choose ${computerSelection} too.`);
-    console.log(`Player : ${playerScore}, Computer : ${computerScore}`);
+    para.textContent = `You draw! Because the computer choose ${computerSelection} too.
+    Player : ${playerScore}, Computer : ${computerScore}`;
+    gameCount += 1;
   } else if (playerSelection === "rock" && computerSelection === "paper") {
-    console.log(`You lose! Because the computer choose ${computerSelection}.`);
     computerScore += 1;
-    console.log(`Player : ${playerScore}, Computer : ${computerScore}`);
+    para.textContent = `You lose! Because the computer choose ${computerSelection}.
+    Player : ${playerScore}, Computer : ${computerScore}`;
+    gameCount += 1;
   } else if (playerSelection === "rock" && computerSelection === "scissors") {
-    console.log(`You win! Because the computer choose ${computerSelection}.`);
     playerScore += 1;
-    console.log(`Player : ${playerScore}, Computer : ${computerScore}`);
+    para.textContent = `You win! Because the computer choose ${computerSelection}.
+    Player : ${playerScore}, Computer : ${computerScore}`;
+    gameCount += 1;
   } else if (playerSelection === "paper" && computerSelection === "rock") {
-    console.log(`You win! Because the computer choose ${computerSelection}.`);
     playerScore += 1;
-    console.log(`Player : ${playerScore}, Computer : ${computerScore}`);
+    para.textContent = `You win! Because the computer choose ${computerSelection}.
+    Player : ${playerScore}, Computer : ${computerScore}`;
+    gameCount += 1;
   } else if (playerSelection === "paper" && computerSelection === "scissors") {
-    console.log(`You lose! Because the computer choose ${computerSelection}.`);
     computerScore += 1;
-    console.log(`Player : ${playerScore}, Computer : ${computerScore}`);
+    para.textContent = `You lose! Because the computer choose ${computerSelection}.
+    Player : ${playerScore}, Computer : ${computerScore}`;
+    gameCount += 1;
   } else if (playerSelection === "scissors" && computerSelection === "rock") {
-    console.log(`You lose! Because the computer choose ${computerSelection}.`);
     computerScore += 1;
-    console.log(`Player : ${playerScore}, Computer : ${computerScore}`);
+    para.textContent = `You lose! Because the computer choose ${computerSelection}.
+    Player : ${playerScore}, Computer : ${computerScore}`;
+    gameCount += 1;
   } else if (playerSelection === "scissors" && computerSelection === "paper") {
-    console.log(`You win! Because the computer choose ${computerSelection}.`);
     playerScore += 1;
-    console.log(`Player : ${playerScore}, Computer : ${computerScore}`);
+    para.textContent = `You win! Because the computer choose ${computerSelection}.
+    Player : ${playerScore}, Computer : ${computerScore}`;
+    gameCount += 1;
   }
+  para.style.whiteSpace = "pre-line";
+  game();
 }
 
 function game() {
-  while (true) {
-    getPlayerChoice();
-    getComputerChoice();
-    playRound();
-    gameCount += 1;
-    if (playerScore === 5) {
-      console.log(`You win with total of ${gameCount} games.`);
-      break;
-    } else if (computerScore === 5) {
-      console.log(`You lose with total of ${gameCount} games.`);
-      break;
+  const gameResult = document.createElement("p");
+  result.appendChild(gameResult);
+  if (playerScore === 5) {
+    gameResult.textContent = `You win with total of ${gameCount} games.
+    Please refresh or reload the browser if you want restart the game.`;
+    const buttons = document.getElementsByClassName("button");
+    for (const button of buttons) {
+      button.disabled = true;
+    }
+  } else if (computerScore === 5) {
+    gameResult.textContent = `You lose with total of ${gameCount} games.
+    Please refresh or reload the browser if you want restart the game.`;
+    const buttons = document.getElementsByClassName("button");
+    for (const button of buttons) {
+      button.disabled = true;
     }
   }
-}
-
-function loadGame() {
-  if (playerScore === 5 || computerScore === 5) {
-    playerScore = 0;
-    computerScore = 0;
-    gameCount = 0;
-  }
-  console.log("Game Loaded");
-  game();
+  gameResult.style.whiteSpace = "pre-line";
 }

@@ -11,16 +11,15 @@
 <body>
     <h1>Welcome to Rock Paper Scissors game</h1>
     <p>You will fight against a computer or bot.</p>
-    <p>This game using console in developer tools.</p>
-    <p>Click Ctrl + Shift + I combination button on your keyboard to start check the stats of the game.</p>
-    <p>Or you can use setting in right top corner => More tools => Developer tools after a window open click Console tab
-        after Elements tab.</p>
-    <p>Once you start the game, u should finish it. To restart the game close the tab (Ctrl + W) then reopen closed tab
-        (Ctrl + Shift + T) </p>
-    <p>To win the game you must reach 5 points.</p>
-    <p>Click the button below to start the game.</p>
-    <button onclick="loadGame()">Start</button>
+    <p>Score 5 points to win the game.</p>
+    <p>Click one of the button below to choose choice.</p>
+    <button class="button" onclick="getPlayerChoice('rock')">Rock</button>
+    <button class="button" onclick="getPlayerChoice('paper')">Paper</button>
+    <button class="button" onclick="getPlayerChoice('scissors')">Scissors</button>
 
+    <div id="result">
+
+    </div>
 </body>
 
 </html>
